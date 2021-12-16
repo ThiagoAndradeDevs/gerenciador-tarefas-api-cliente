@@ -5,8 +5,10 @@ import PropTypes from 'prop-types';
 import { Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 function ConcluirTarefa(props) {
+  const API_URL_CONCLUIR_TAREFA = 'http://localhost:3001/gerenciador-tarefa/:id/concluir';
   const [exibirModal, setExibirModal] = useState(false);
   const [exibirModalErro, setExibirModalErro] = useState(false);
   function handleAbrirModal(event) {
@@ -19,19 +21,18 @@ function ConcluirTarefa(props) {
   function handleFecharModalErro() {
     setExibirModalErro(false);
   }
-  function handleConcluirTarefa(event) {
+  async function handleConcluirTarefa(event) {
     event.preventDefault();
-    const tarefasDb = localStorage['tarefas'];
-    let tarefas = tarefasDb ? JSON.parse(tarefasDb) : [];
-    tarefas = tarefas.map(tarefa => {
-      if (tarefa.id === props.tarefa.id) {
-        tarefa.concluida = true;
-      }
-      return tarefa;
-    })
-    localStorage['tarefas'] = JSON.stringify(tarefas);
-    setExibirModal(false);
-    props.recarregarTarefa(true);
+    try {
+      await axios.put(API_URL_CONCLUIR_TAREFA.replace('id', props.tarefa.id));
+      setExibirModal(false);
+      props.recarregarTarefa(true);
+
+    } catch (err) {
+      setExibirModal(false);
+      setExibirModalErro(true);
+    }
+
   }
   return (
     <span className={props.className}>
