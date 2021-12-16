@@ -9,6 +9,7 @@ function AtualizarTarefa(props) {
   const [exibirModal, setExibirModal] = useState(false);
   const [formValidado, setFormValidado] = useState(false)
   const [carregarTarefa, setCarregarTarefa] = useState(true);
+  const [exibirModalErro, setExibirModalErro] = useState(false);
   useEffect(() => {
     if (carregarTarefa) {
       const tarefasDb = localStorage['tarefas'];
@@ -27,6 +28,9 @@ function AtualizarTarefa(props) {
   function handleFecharModal() {
 
     navigate('/');
+  }
+  function handleFecharModalErro() {
+    setExibirModalErro(false);
   }
   function atualizar(event) {
     event.preventDefault();
@@ -88,6 +92,21 @@ function AtualizarTarefa(props) {
           <Modal.Footer>
             <Button variant='success' onClick={handleFecharModal}>
               Continuar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <Modal show={exibirModalErro} onHide={handleFecharModalErro}>
+          <Modal.Header>
+            <Modal.Title>Erro</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Erroao atualizar tarefa, tente novamente em instantes.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant='warning'
+              onClick={handleFecharModalErro}>
+              Erro
             </Button>
           </Modal.Footer>
         </Modal>
