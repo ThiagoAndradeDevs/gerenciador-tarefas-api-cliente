@@ -5,25 +5,27 @@ import React, { useState } from 'react';
 import { Button, Form, Modal, Jumbotron } from 'react-bootstrap'
 import { navigate } from 'hookrouter';
 import Tarefa from '../models/tarefa.model';
+import axios from 'axios';
 
 
 
 function CadastrarTarefa() {
+  const API_URL_CADASTRAR_TAREFAS = 'http://localhost:3001/gerenciador-tarefas';
   const [tarefa, setTarefa] = useState(' ')
   const [formValidado, setFormValidado] = useState(false)
   const [exibirModal, setExibirModal] = useState(false)
   const [exibirModalErro, setExibirModalErro] = useState(false)
-  function cadastrar(event) {
+  async function cadastrar(event) {
     event.preventDefault();
     setFormValidado(true);
     if (event.currentTarget.checkValidity() === true) {
-      //obtem tarefa 
-      const tarefaDb = localStorage['tarefas'];
-      const tarefas = tarefasDb ? JSON.parse(tarefaDb) : [];
-      //persiste tarefa
-      tarefas.push(new tarefa(new Date().getTime(), tarefa, false));
-      localStorage['tarefas'] = JSON.stringify(tarefas);
-      setExibirModal(true);
+      try {
+        const novaTarefa = new tarefa(null, tarefa, false);
+        await axios.post(API_URL_CADASTRAR_TAREFAS, novaTarefa);
+        setExibirModal(true);
+      } catch (err) {
+        setExibirModalErro(true);
+      }
     }
 
   }
