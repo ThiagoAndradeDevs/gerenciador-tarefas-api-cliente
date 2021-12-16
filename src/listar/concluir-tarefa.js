@@ -8,12 +8,16 @@ import { faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
 
 function ConcluirTarefa(props) {
   const [exibirModal, setExibirModal] = useState(false);
+  const [exibirModalErro, setExibirModalErro] = useState(false);
   function handleAbrirModal(event) {
     event.preventDefault();
     setExibirModal(true);
   }
   function handleFecharModal() {
     setExibirModal(false);
+  }
+  function handleFecharModalErro() {
+    setExibirModalErro(false);
   }
   function handleConcluirTarefa(event) {
     event.preventDefault();
@@ -48,6 +52,20 @@ function ConcluirTarefa(props) {
           <Button variant="primary" onClick={handleConcluirTarefa}
             data-testid="btn-fechar-modal">
             Não
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={exibirModalErro} onHide={handleFecharModalErro}>
+        <Modal.Header closeButton>
+          <Modal.Title>Erro</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Erro ao concluir tarefa, tente novamente em instantes.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant='warning' onClick={handleFecharModalErro}>
+            Fechar
           </Button>
         </Modal.Footer>
       </Modal>
