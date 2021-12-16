@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Form, Modal, Jumbotron } from 'react-bootstrap';
 import { navigate, A } from 'hookrouter';
 import axios from 'axios';
+import Tarefa from '../models/tarefa.model';
 
 
 function AtualizarTarefa(props) {
@@ -39,22 +40,18 @@ function AtualizarTarefa(props) {
   function handleFecharModalErro() {
     setExibirModalErro(false);
   }
-  function atualizar(event) {
+  async function atualizar(event) {
     event.preventDefault();
     setFormValidado(true);
     if (event.currentTarget.checkValidity() === true) {
-      //obter as tarefa
-      const tarefaDb = localStorage['tarefas'];
-      let tarefas = tarefaDb ? JSON.parse(tarefaDb) : [];
-      // persistir a tarefa atualizada
-      tarefas = tarefas.map(tarefaObject => {
-        if (tarefaObject.id === parseInt(props.id)) {
-          tarefaObject.nome = tarefa;
-        }
-        return tarefaObject;
-      })
-      localStorage['tarefas'] = JSON.stringify(tarefas);
-      setExibirModal(true)
+      try {
+        const tarefaAtualizar = new tarefa(null, tarefa, false);
+        await axios.put(API_URL_TAREFAS + props.id, AtualizarTarefa);
+        setExibirModal(true)
+      } catch (err) {
+        setExibirModalErro(true);
+      }
+
     }
   }
   function handleTxtTarefa(event) {
