@@ -7,10 +7,12 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import ItensListaTarefas from './itens-lista-tarefas';
 import Paginacao from './paginacao';
 import Ordenacao from './ordenacao';
+import axios from 'axios';
 
 
 function ListarTarefas() {
   const ITEN_POR_PAG = 3;
+  const API_URL_LISTAR_TAREFAS = ' http://localhost:3001/gerenciador-tarefas';
 
   const [tarefas, setTarefas] = useState([]);
   const [carregarTarefas, setCarregarTarefas] = useState(true);
@@ -20,27 +22,15 @@ function ListarTarefas() {
   const [ordenarDesc, setOrdenarDesc] = useState(false);
   const [filtroTarefa, setFiltroTarefa] = useState(' ');
   useEffect(() => {
-    function obterTarefas() {
-      const tarefasDb = localStorage['tarefas'];
-      let ListaTarefas = tarefasDb ? JSON.parse(tarefasDb) : [];
-      //filtar
-      ListaTarefas = ListaTarefas.filter(
-        t => t.nome.toLowerCase().indexOf(filtroTarefa.toLowerCase()) === 0
-      );
-      //ordenar
-      if (ordenarAsc) {
-        ListaTarefas.sort((t1, t2) => (t1.nome.toLowerCase() > t2.nome.toLowerCase()) ? 1 : -1);
-      } else if (ordenarDesc) {
-        ListaTarefas.sort((t1, t2) => (t1.nome.toLowerCase() < t2.nome.toLowerCase()) ? 1 : -1);
+    async function obterTarefas() {
+      try {
+        let { data } = await axios.get(API_URL_LISTAR_TAREFAS);
+        setTotalItens(data.tatalItens);
+        setTarefas(data.tarefas);
+      } catch (err) {
+        setTarefas([]);
       }
 
-
-      //paginar
-
-
-      setTotalItens(ListaTarefas.length);
-
-      setTarefas(ListaTarefas.splice((paginaAtual - 1) * ITEN_POR_PAG, ITEN_POR_PAG));
 
     }
     if (carregarTarefas) {
