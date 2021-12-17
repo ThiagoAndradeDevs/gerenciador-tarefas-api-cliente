@@ -32,7 +32,7 @@ it('deve exibir uma tabela contendo 3 tarefas', async () => {
   expect(tabela).toHaveTextContent(nomeSegundaTarefa);
   expect(tabela).toHaveTextContent(nomeTerceiraTarefa);
 })
-it.skiped('deve filtrar os dados da tabela de tarefas', async () => {
+it('deve filtrar os dados da tabela de tarefas', async () => {
   axiosMock.get.mockResolvedValueOnce({ data: listaTarefas })
   axiosMock.get.mockResolvedValueOnce({
     data: {
