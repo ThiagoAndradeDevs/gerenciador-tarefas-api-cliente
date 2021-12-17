@@ -23,7 +23,7 @@ describe.skip('Teste do componente de conclusão de tarefas', () => {
     fireEvent.click(getByTestId('btn-abrir-modal'));
     expect(getByTestId('modal')).toHaveTextContent(nomeTarefa);
   })
-  it.skiped('deve concluir uma tarefa', () => {
+  it('deve concluir uma tarefa', () => {
     localStorage['tarefa'] = JSON.stringify([tarefa]);
     const { getByTestId } = render(
       <ConcluirTarefa tarefa={tarefa} recarregarTarefas={() => false} />
