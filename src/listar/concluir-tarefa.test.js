@@ -10,7 +10,7 @@ describe.skip('Teste do componente de conclusão de tarefas', () => {
   const nomeTarefa = 'Tarefa teste';
   const tarefa = new Tarefa(1, nomeTarefa, false);
 
-  it('deve reinderizar o componente sem erros', () => {
+  it.skiped('deve reinderizar o componente sem erros', () => {
     const div = document.createElement('div');
     ReactDOM.render(
       <ConcluirTarefa tarefa={tarefa} recarregarTarefas={() => false} />, div);

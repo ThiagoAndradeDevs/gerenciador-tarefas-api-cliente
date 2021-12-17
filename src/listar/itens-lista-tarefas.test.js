@@ -12,7 +12,7 @@ describe.skip('Teste do componente que exibe item da listagem de tarefas', () =>
   const tarefa = new Tarefa(1, nomeTarefa, false)
   const tarefaConcluida = new Tarefa(2, nomeTarefa, true);
 
-  it.skiped('Deve reinderizar o componente sem eroos', () => {
+  it('Deve reinderizar o componente sem eroos', () => {
     const div = document.createElement('div');
     ReactDOM.render(
       <ItensListaTarefas tarefas={[]}
