@@ -17,7 +17,7 @@ describe('Teste do componente de paginaçao', () => {
         mudarPagina={() => false} />, div);
     ReactDOM.unmountComponentAtNode(div);
   })
-  it.skiped('deve exibir a paginaçao contendo 3 paginas', () => {
+  it('deve exibir a paginaçao contendo 3 paginas', () => {
     const { getByTestId } = render(
       <Paginacao
         totalItens={15}
