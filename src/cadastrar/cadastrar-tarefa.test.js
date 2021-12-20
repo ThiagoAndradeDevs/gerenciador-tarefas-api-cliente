@@ -10,10 +10,11 @@ import axiosMock from 'axios'
 
 describe('Teste do componente de cadastro de tarefas', () => {
 
-  it('Deve cadastrar uma nova tarefa', () => {
-    const { getByTestId } = render(<CadastrarTarefa />);
+  it('Deve cadastrar uma nova tarefa', async () => {
+    const { getByTestId, findByTestId } = render(<CadastrarTarefa />);
     fireEvent.change(getByTestId('txt-tarefa'), { target: { value: 'Testar componente' } });
     fireEvent.click(getByTestId('btn-cadastar'));
+    const modal = await findByTestId('modal');
     expect(getByTestId('modal')).toHaveTextContent('Sucesso')
     expect(getByTestId('modal')).toHaveTextContent(' Tarefa adicionada com sucesso')
   })
