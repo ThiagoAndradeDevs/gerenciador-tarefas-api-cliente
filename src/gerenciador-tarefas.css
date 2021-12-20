@@ -3,3 +3,22 @@
   margin-left: 25%;
   
 }
+button {
+  width: 10%;
+  margin: 4px !important;
+  color: rgb(69, 165, 25);
+  background-color: floralwhite;
+
+}
+
+input[type=text] {
+  margin-top: 3px;
+  width: 96%;
+  margin-left: 6px;
+ display: flex;
+}
+button.light {
+  color: chartreuse;
+  background-color: crimson;
+  
+}
