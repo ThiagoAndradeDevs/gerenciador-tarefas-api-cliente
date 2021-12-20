@@ -22,3 +22,10 @@ button.light {
   background-color: crimson;
   
 }
+Modal {
+  width: 10%;
+  margin: 4px !important;
+  color: rgb(69, 165, 25);
+  background-color: floralwhite;
+
+}
